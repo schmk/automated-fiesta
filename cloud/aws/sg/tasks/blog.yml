@@ -1,0 +1,23 @@
+- name: blog
+  ec2_group:
+    name: blog
+    description: blog
+    region: us-east-1
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        group_name: proxy
+        group_desc: proxy
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 10050
+        to_port: 10050
+        group_name: monitoring
+        group_desc: monitoring
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0

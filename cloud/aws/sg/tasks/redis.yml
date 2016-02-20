@@ -1,0 +1,28 @@
+- name: redis
+  ec2_group:
+    name: redis
+    description: redis
+    region: us-east-1
+    rules:
+      - proto: tcp
+        from_port: 6379
+        to_port: 6379
+        group_name: blog
+        group_desc: blog
+      - proto: tcp
+        from_port: 6379
+        to_port: 6379
+        group_name: app
+        group_desc: app
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 10050
+        to_port: 10050
+        group_name: monitoring
+        group_desc: monitoring
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0

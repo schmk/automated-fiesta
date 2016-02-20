@@ -1,0 +1,5 @@
+- include: proxy.yml
+- include: blog.yml
+- include: admin.yml
+- include: monitoring.yml
+- include: redis.yml
