@@ -1,0 +1,28 @@
+- name: database
+  rds:
+    command: create
+    instance_name: '{{ db.name }}'
+    db_name: '{{ db.name }}'
+    db_engine: postgres
+    size: 5
+    instance_type: db.t2.micro
+    username: '{{ db.username }}'
+    password: '{{ db.password }}'
+    vpc_security_groups: [ '{{ sg_postgres.group_id }}' ]
+    subnet: default
+    multi_zone: no
+    region: '{{ cloud.aws.region }}'
+    backup_retention: 0
+    wait: yes
+    wait_timeout: 3600
+    tags:
+      role: postgres
+
+- rds:
+    command: facts
+    region: '{{ cloud.aws.region }}'
+    instance_name: '{{ db.name }}'
+  register: rds
+
+- debug:
+   msg: "{{ rds.instance }}"
