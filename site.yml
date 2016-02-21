@@ -1,0 +1,10 @@
+- hosts: localhost
+  connection: local
+  gather_facts: True
+  vars_files:
+    - vars/cloud.yml
+    - vars/database.yml
+  roles:
+    - cloud/aws/sg
+    - cloud/aws/ec2
+    - cloud/aws/rds
