@@ -1,4 +1,4 @@
-- name: proxy
+- name: sg_proxy
   ec2_group:
     name: proxy
     description: proxy

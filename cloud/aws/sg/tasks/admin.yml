@@ -1,4 +1,4 @@
-- name: admin
+- name: sg_admin
   ec2_group:
     name: admin
     description: blog

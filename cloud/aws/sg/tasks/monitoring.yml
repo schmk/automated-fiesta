@@ -1,4 +1,4 @@
-- name: monitoring
+- name: sg_monitoring
   ec2_group:
     name: monitoring
     description: monitoring
