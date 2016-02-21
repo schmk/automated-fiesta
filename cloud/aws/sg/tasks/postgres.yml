@@ -1,0 +1,23 @@
+- name: sg_postgres
+  ec2_group:
+    name: postgres
+    description: postgres
+    region: us-east-1
+    rules:
+      - proto: tcp
+        from_port: 5432
+        to_port: 5432
+        group_name: blog
+        group_desc: blog
+      - proto: tcp
+        from_port: 5432
+        to_port: 5432
+        group_name: app
+        group_desc: app
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: sg_postgres
+
+- debug:
+   msg: '{{ sg_postgres }}'
