@@ -1,12 +1,15 @@
-- ec2:
+- name: i_redis
+  ec2:
     key_name: '{{ cloud.aws.key_name }}'
     instance_type: t2.nano
-    image: '{{ cloud.aws.ami }}' 
+    image: '{{ cloud.aws.ami }}'
     wait: yes
     group: redis
-    count: 1
+    exact_count: 1
+    count_tag:
+      role: redis
     region: '{{ cloud.aws.region }}'
-    state: present
     termination_protection: yes
     instance_tags:
       role: redis
+      Name: redis

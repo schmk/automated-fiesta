@@ -1,12 +1,15 @@
-- ec2:
+- name: i_admin
+  ec2:
     key_name: '{{ cloud.aws.key_name }}'
-    instance_type: t2.nano
-    image: '{{ cloud.aws.ami }}' 
+    instance_type: t2.micro
+    image: '{{ cloud.aws.ami }}'
     wait: yes
     group: admin
-    count: 1
+    exact_count: 1
+    count_tag:
+      role: admin
     region: '{{ cloud.aws.region }}'
-    state: present
     termination_protection: yes
     instance_tags:
       role: admin
+      Name: admin
