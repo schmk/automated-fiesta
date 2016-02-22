@@ -25,4 +25,4 @@
   register: rds
 
 - debug:
-   msg: "{{ rds.instance }}"
+   msg: '{{ rds.instance }}'
