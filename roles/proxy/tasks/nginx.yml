@@ -1,0 +1,7 @@
+- name: 'create nginx vhost {{ app.domain }}'
+  template:
+    src: nginx_proxy_config.j2
+    dest: '/etc/nginx/conf.d/{{ app.domain }}.conf'
+    backup: yes
+  notify:
+    - restart nginx

@@ -1,0 +1,30 @@
+upstream upstream_blog_{{ app.domain }} {
+  server {{ i_blog['instances'][0]['private_ip_address'] }};
+}
+
+upstream upstream_admin_{{ app.domain }} {
+  server {{ i_admin['instances'][0]['private_ip_address'] }};
+}
+
+
+server {
+  listen      80;
+  server_name {{ app.domain }}
+              {{ i_proxy['instances'][0]['public_dns_name'] }}
+              ;
+              
+  access_log /var/log/nginx/{{ app.domain }}.access_log main;
+  error_log /var/log/nginx/{{ app.domain }}.error.log warn;
+
+  client_max_body_size 100M;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+  location /admin {
+    proxy_pass http://upstream_admin_{{ app.domain }};
+  }
+  location / {
+    proxy_pass http://upstream_blog_{{ app.domain }};
+  }
+}

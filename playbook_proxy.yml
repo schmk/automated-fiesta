@@ -1,0 +1,12 @@
+---
+- hosts: tag_role_proxy
+  user: admin
+  become: yes
+  gather_facts: True
+  vars_files:
+    - vars/cloud.yml
+    - vars/database.yml
+    - vars/app.yml
+  roles:
+    - common/nginx
+    - roles/proxy
