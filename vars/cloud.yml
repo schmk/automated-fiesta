@@ -2,4 +2,5 @@ cloud:
   aws:
     region: us-east-1
     ami: ami-116d857a #https://wiki.debian.org/Cloud/AmazonEC2Image/Jessie
-    key_name: ansible  
+    key_name: ansible
+    termination_protection: no

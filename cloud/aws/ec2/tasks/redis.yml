@@ -9,7 +9,7 @@
     count_tag:
       role: redis
     region: '{{ cloud.aws.region }}'
-    termination_protection: yes
+    termination_protection: '{{ cloud.aws.termination_protection }}'
     instance_tags:
       role: redis
       Name: redis
