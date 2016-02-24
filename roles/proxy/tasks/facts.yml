@@ -1,0 +1,12 @@
+- name: 'i_{{ iname }} facts'
+  become: False
+  local_action:
+    module: ec2_remote_facts
+    region: '{{ cloud.aws.region }}'
+    filters:
+      instance-state-name: running
+      'tag:Name': '{{ iname }}'
+  register: 'i_{{ iname }}'
+
+- debug:
+    msg: 'i_{{ iname }}'
