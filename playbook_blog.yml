@@ -1,0 +1,25 @@
+---
+- hosts: tag_role_blog
+  user: admin
+  become: yes
+  gather_facts: True
+  vars_files:
+    - vars/cloud.yml
+    - vars/database.yml
+    - vars/app.yml
+  vars:
+    django:
+      gitrepo: '{{ app.gitrepo }}'
+      gitbranch: 'master'
+      domain: '{{ app.domain }}'
+      project_path: '/var/www/{{ app.domain }}/site/'
+      settings_file: '/var/www/{{ app.domain }}/site/{{ app.name }}/settings.py'
+      virtualenv_path: '/var/www/{{ app.domain }}/venv/'
+      user: '{{ app.user }}'
+      uid: '{{ app.uid }}'
+      app_name: '{{ app.name }}'
+      home: '/var/www/{{ app.domain }}'
+      workers: 5
+  roles:
+    - common/nginx
+    - common/django

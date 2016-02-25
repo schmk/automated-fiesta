@@ -1,0 +1,25 @@
+- name: Update .bashrc for convenience
+  lineinfile:
+    dest: '{{ django.home }}/.bashrc'
+    owner: '{{ django.user }}'
+    line: '{{ item }}'
+    state: present
+    insertafter: EOF
+    create: yes
+  with_items:
+    - 'source {{ django.virtualenv_path }}/bin/activate'
+    - 'cd {{ django.virtualenv_path }}'
+
+- name: Create the virtualenv
+  command: 'virtualenv {{ django.virtualenv_path }} --no-site-packages'
+  args:
+    creates: '{{ django.virtualenv_path }}/bin/activate'
+
+
+- name: Create the application log folder
+  file:
+    path: '{{ django.home }}/logs'
+    owner: '{{ django.user }}'
+    group: '{{ django.user }}'
+    mode: 0774
+    state: directory

@@ -1,0 +1,8 @@
+- include: packages.yml
+- include: user.yml
+- include: virtualenv.yml
+- include: gitrepo.yml
+- include: daemon.yml
+- include: facts.yml iname=proxy
+- include: django.yml
+- include: nginx_vhost.yml

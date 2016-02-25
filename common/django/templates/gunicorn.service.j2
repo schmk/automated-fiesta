@@ -1,0 +1,16 @@
+[Unit]
+Description=gunicorn daemon {{ django.app_name }}
+After=network.target
+
+[Service]
+PIDFile={{ django.home }}/run/gunicorn.pid
+User={{ django.user }}
+Group={{ django.user }}
+WorkingDirectory={{ django.home }}
+ExecStart={{ django.virtualenv_path }}/bin/gunicorn_start
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

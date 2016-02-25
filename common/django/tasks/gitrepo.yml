@@ -1,0 +1,10 @@
+- name: installed git core
+  apt:
+    name: git
+
+- name: setuped repo
+  git:
+    repo: '{{ django.gitrepo }}'
+    version: '{{ django.gitbranch }}'
+    dest: '{{ django.project_path }}'
+    accept_hostkey: yes

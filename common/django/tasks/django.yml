@@ -1,0 +1,33 @@
+- name: Install packages required by the Django app inside virtualenv
+  pip:
+    virtualenv: '{{ django.virtualenv_path }}'
+    requirements: '{{ django.home }}/site/requirements.txt'
+
+- name: djago settings
+  template:
+    src: local_settings.py.j2
+    dest: '{{ django.home }}/site/{{ django.app_name }}/local_settings.py'
+    backup: yes
+  notify:
+    - restart gunicorn
+
+- name: Run the Django syncdb command
+  django_manage:
+    command: syncdb
+    app_path: '{{django.project_path}}'
+    virtualenv: '{{ django.virtualenv_path }}'
+  tags: django.syncdb
+
+- name: Run Django database migrations
+  django_manage:
+    command: migrate
+    app_path: '{{django.project_path}}'
+    virtualenv: '{{ django.virtualenv_path }}'
+  tags: django.migrate
+
+- name: Run Django collectstatic
+  django_manage:
+    command: collectstatic
+    app_path: '{{django.project_path}}'
+    virtualenv: '{{ django.virtualenv_path }}'
+  tags: django.collectstatic

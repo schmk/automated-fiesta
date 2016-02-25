@@ -1,0 +1,31 @@
+- name: systemd service
+  template:
+    src: gunicorn.service.j2
+    dest: /lib/systemd/system/gunicorn-{{ django.app_name }}.service
+    backup: no
+  notify:
+    - hit systemd
+
+
+- name: Install Gunicorn
+  pip:
+    name: gunicorn
+    virtualenv: '{{ django.virtualenv_path }}'
+
+- name: Create the Gunicorn script file
+  template:
+    src: gunicorn_start.j2
+    dest: '{{ django.virtualenv_path }}/bin/gunicorn_start'
+    owner: '{{ django.user }}'
+    group: '{{ django.user }}'
+    mode: 0755
+    backup: yes
+
+
+- name: Create the application pid folder
+  file:
+    path: '{{ django.home }}/run'
+    owner: '{{ django.user }}'
+    group: '{{ django.user }}'
+    mode: 0774
+    state: directory

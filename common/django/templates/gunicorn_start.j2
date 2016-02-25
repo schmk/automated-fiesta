@@ -1,0 +1,37 @@
+#!/bin/bash
+
+NAME={{ django.app_name }}
+DJANGODIR={{ django.home }}/site
+SOCKFILE={{ django.home }}/run/gunicorn.sock
+USER={{ django.user }}
+GROUP={{ django.user }}
+NUM_WORKERS={{ django.workers }}
+DJANGO_WSGI_MODULE="{{ django.app_name }}.wsgi"
+
+# Set this to 0 for unlimited requests. During development, you might want to
+# set this to 1 to automatically restart the process on each request (i.e. your
+# code will be reloaded on every request).
+MAX_REQUESTS=100
+
+echo "`date -u`: Starting $NAME as `whoami`"
+
+cd $DJANGODIR
+
+# Activate the virtual environment.
+source {{ django.virtualenv_path }}/bin/activate
+
+# Create the run directory if it doesn't exist.
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+# Programs meant to be run under supervisor should not daemonize themselves
+# (do not use --daemon)
+exec {{ django.virtualenv_path }}/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+        --name $NAME \
+        --workers $NUM_WORKERS \
+        --user=$USER --group=$GROUP \
+        --log-level=warn \
+        --log-file={{ django.home }}/logs/gunicorn-error.log \
+        --access-logfile={{ django.home }}/logs/gunicorn-access.log \
+        --pid={{ django.home }}/run/gunicorn.pid \
+        --bind=unix:$SOCKFILE

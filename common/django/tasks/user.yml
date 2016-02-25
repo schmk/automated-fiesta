@@ -1,0 +1,22 @@
+- name: Create the application group
+  group:
+    name: '{{ django.user }}'
+    system: yes
+    state: present
+    gid: '{{ django.uid }}'
+
+- name: Create the application user
+  user:
+    name: '{{ django.user }}'
+    group: '{{ django.user }}'
+    state: present
+    uid: '{{ django.uid }}'
+    home: '{{ django.home }}'
+    shell: /bin/bash
+
+- name: 'add nginx to {{ django.user }} group'
+  user:
+    name: nginx
+    groups:
+      - '{{ django.user }}'
+    append: yes
