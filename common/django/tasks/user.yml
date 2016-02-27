@@ -5,6 +5,14 @@
     state: present
     gid: '{{ django.uid }}'
 
+- name: Create www folder
+  file:
+    path: /var/www/
+    owner: nginx
+    group: nginx
+    mode: 0755
+    state: directory
+
 - name: Create the application user
   user:
     name: '{{ django.user }}'
@@ -13,10 +21,10 @@
     uid: '{{ django.uid }}'
     home: '{{ django.home }}'
     shell: /bin/bash
+    createhome: yes
 
 - name: 'add nginx to {{ django.user }} group'
   user:
     name: nginx
-    groups:
-      - '{{ django.user }}'
+    groups: '{{ django.user }}'
     append: yes
