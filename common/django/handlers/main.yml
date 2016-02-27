@@ -1,8 +1,20 @@
 - name: hit systemd
   command: systemctl daemon-reload
 
-- name: restart  gunicorn
+- name: restart gunicorn
   service:
-    name: gunicorn-{{ django.app_name }}
+    name: 'gunicorn-{{ django.app_name }}'
     state: restarted
-    enabled: yes
+    pattern: '{{ django.app_name }}'
+
+- name: manage migrate
+  django_manage:
+    command: migrate
+    app_path: '{{django.project_path}}'
+    virtualenv: '{{ django.virtualenv_path }}'
+
+- name: manage static
+  django_manage:
+    command: collectstatic
+    app_path: '{{django.project_path}}'
+    virtualenv: '{{ django.virtualenv_path }}'

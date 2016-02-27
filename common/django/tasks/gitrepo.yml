@@ -8,3 +8,7 @@
     version: '{{ django.gitbranch }}'
     dest: '{{ django.project_path }}'
     accept_hostkey: yes
+  notify:
+    - manage migrate
+    - manage static
+    - restart gunicorn
