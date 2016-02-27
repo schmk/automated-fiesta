@@ -1,6 +1,6 @@
 app:
   domain: 'example.maratsh.ru'
   name: hello
-  gitrepo: 'https://github.com/schmk/django-hello-world'
+  gitrepo: 'https://github.com/schmk/laughing-journey.git'
   user: blogapp
   uid: 6000
