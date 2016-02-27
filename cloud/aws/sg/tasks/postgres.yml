@@ -12,8 +12,8 @@
       - proto: tcp
         from_port: 5432
         to_port: 5432
-        group_name: app
-        group_desc: app
+        group_name: admin
+        group_desc: admin
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0
