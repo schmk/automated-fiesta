@@ -6,6 +6,10 @@
   notify:
     - hit systemd
 
+- name: set  gunicorn service
+  service:
+    name: gunicorn-{{ django.app_name }}
+    enabled: yes
 
 - name: Install Gunicorn
   pip:
