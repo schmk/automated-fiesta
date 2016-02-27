@@ -9,6 +9,5 @@
     - python-dev
     - python-pip
     - python-pycurl
-    - supervisor
     - virtualenv
     - libpq-dev
