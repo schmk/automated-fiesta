@@ -1,0 +1,9 @@
+{
+  "values":
+    {
+      "myDatabasePass": "xyz",
+      "myRedpass": "xyz",
+      "myWorkersg": "sg-xyz",
+      "myRdsHost": "blogapp.xyz.us-east-1.rds.amazonaws.com"
+    }
+}

@@ -1,0 +1,94 @@
+{
+  "objects": [
+    {
+      "failureAndRerunMode": "CASCADE",
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "pipelineLogUri": "s3://#{myBucket}/logs/",
+      "scheduleType": "ONDEMAND",
+      "name": "Default",
+      "id": "Default"
+    },
+    {
+      "dataFormat": {
+        "ref": "DataFormatId_bL2qC"
+      },
+      "filePath": "s3://#{myBucket}/export_stdout_#{myTable}.csv",
+      "name": "csv",
+      "id": "DataNodeId_DLHpg",
+      "type": "S3DataNode"
+    },
+    {
+      "output": {
+        "ref": "DataNodeId_DLHpg"
+      },
+      "scriptUri": "s3://#{myBucket}/export.sh",
+      "stdout": "s3://#{myBucket}/export_stdout_#{myTable}.csv",
+      "name": "push csv",
+      "id": "ShellCommandActivityId_3kv4d",
+      "scriptArgument": "[ #{myRdsHost}, #{myDatabaseName}, #{myDatabaseUsername},  #{myDatabasePass}, 5432, #{myTable}, 0, 1000 ]",
+      "runsOn": {
+        "ref": "ResourceId_DijoQ"
+      },
+      "type": "ShellCommandActivity"
+    },
+    {
+      "name": "DefaultDataFormat1",
+      "id": "DataFormatId_bL2qC",
+      "type": "CSV"
+    },
+    {
+      "output": {
+        "ref": "DataNodeId_80OnJ"
+      },
+      "input": {
+        "ref": "DataNodeId_DLHpg"
+      },
+      "name": "red copy from s3",
+      "id": "RedshiftCopyActivityId_7n1mN",
+      "runsOn": {
+        "ref": "ResourceId_DijoQ"
+      },
+      "type": "RedshiftCopyActivity",
+      "insertMode": "TRUNCATE"
+    },
+    {
+      "databaseName": "#{myDatabaseName}",
+      "*password": "#{myDatabasePass}",
+      "name": "RDS_Database_PG",
+      "id": "DatabaseId_i07Mz",
+      "region": "#{myRegion}",
+      "type": "RdsDatabase",
+      "rdsInstanceId": "#{myRdsInstanceId}",
+      "username": "#{myDatabaseUsername}"
+    },
+    {
+      "*password": "#{myRedpass}",
+      "name": "RedshiftDatabase",
+      "clusterId": "#{myRedcluster}",
+      "id": "RedshiftDatabaseId_r4YDu",
+      "type": "RedshiftDatabase",
+      "username": "#{myReduser}"
+    },
+    {
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "securityGroupIds": "#{myWorkersg}",
+      "name": "EC2 Worker",
+      "id": "ResourceId_DijoQ",
+      "type": "Ec2Resource",
+      "terminateAfter": "1 Hour"
+    },
+    {
+      "database": {
+        "ref": "RedshiftDatabaseId_r4YDu"
+      },
+      "createTableSql": "#{myRedcreateTableSql}",
+      "name": "RedShiftCluster",
+      "id": "DataNodeId_80OnJ",
+      "type": "RedshiftDataNode",
+      "tableName": "#{myTable}"
+    }
+  ],
+  "parameters": []
+}

@@ -1,0 +1,84 @@
+{
+  "parameters": [
+    {
+      "id": "myBucket",
+      "description": "Working bucket",
+      "type": "String",
+      "default": "fpipe"
+    },
+    {
+      "id": "myTable",
+      "description": "Talble name for import",
+      "type": "String",
+      "default": "django_migrations"
+    },
+    {
+      "id": "myDatabaseName",
+      "description": "Postgres RDS database name",
+      "type": "String",
+      "default": "blogapp"
+    },
+    {
+      "id": "myDatabaseUsername",
+      "description": "Postgres RDS database username",
+      "type": "String",
+      "default": "blogapp"
+    },
+    {
+      "id": "myRegion",
+      "description": "Region RDS",
+      "type": "String",
+      "default": "us-east-1"
+    },
+    {
+      "id": "myDatabasePass",
+      "description": "Postgres RDS database password",
+      "type": "String",
+      "default": "Et4Ovhep3"
+    },
+    {
+      "id": "myRdsInstanceId",
+      "description": "Postgres RDS InstanceID",
+      "type": "String",
+      "default": "blogapp"
+    },
+    {
+      "id": "myRdsHost",
+      "description": "Postgres RDS HOST",
+      "type": "String",
+      "default": "blogapp.xyz.us-east-1.rds.amazonaws.com"
+    },
+    {
+      "id": "myRedcluster",
+      "description": "RedshiftDatabase clusterId",
+      "type": "String",
+      "default": "fiesta"
+
+    },
+    {
+      "id": "myReduser",
+      "description": "RedshiftDatabase username",
+      "type": "String",
+      "default": "fiesta"
+
+    },
+    {
+      "id": "myRedpass",
+      "description": "RedshiftDatabase password",
+      "type": "String",
+      "default": "xyz"
+    },
+    {
+      "id": "myWorkersg",
+      "description": "Ec2Resource security Group id",
+      "type": "String",
+      "default": "sg-xyz"
+    },
+    {
+      "id": "myRedcreateTableSql",
+      "description": "Redshift createTableSql",
+      "type": "String",
+      "default": "CREATE TABLE IF NOT EXISTS django_migrations (\n    id integer NOT NULL,\n    app character varying(255) NOT NULL,\n    name character varying(255) NOT NULL,\n    applied timestamp\n);"
+    }
+  ]
+}
