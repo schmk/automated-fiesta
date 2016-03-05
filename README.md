@@ -1,20 +1,23 @@
 #### Использование
 
 - Указать ключи AWS
+- Установить зависимости из galaxy
+```
+ansible-galaxy install -r requirements.yml
+```
 -	Настроить параметры приложения в vars/
 - Запустить облако
 
 ```
 ansible-playbook  -i ec2.py  site.yml
 ```
-
 - Запустить настройку инстансов
 
 ```
-
 ansible-playbook  -i ec2.py  playbook_proxy.yml
 ansible-playbook  -i ec2.py  playbook_blog.yml
 ansible-playbook  -i ec2.py  playbook_admin.yml
+ansible-playbook  -i ec2.py  playbook_redis.yml
 ```
 
 ![pic](/pic.png)
