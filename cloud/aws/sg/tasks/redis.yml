@@ -12,8 +12,8 @@
       - proto: tcp
         from_port: 6379
         to_port: 6379
-        group_name: app
-        group_desc: app
+        group_name: admin
+        group_desc: admin
       - proto: tcp
         from_port: 22
         to_port: 22
