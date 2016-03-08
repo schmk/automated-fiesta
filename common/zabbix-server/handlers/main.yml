@@ -1,0 +1,11 @@
+- name: restart php-fpm
+  service:
+    name: 'php5-fpm'
+    state: restarted
+    pattern: 'php-fpm'
+
+- name: restart zabbix-server
+  service:
+    name: 'zabbix-server'
+    state: restarted
+    pattern: 'zabbix-server'

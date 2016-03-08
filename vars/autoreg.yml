@@ -1,0 +1,54 @@
+zabbix_auth:
+  jsonrpc: "2.0"
+  method: "user.login"
+  params:
+    user: "Admin"
+    password: "zabbix"
+  id: 1
+  auth: null
+
+zabbix_action_get:
+  jsonrpc: "2.0"
+  method: "action.get"
+  params:
+    output: "extend"
+    selectOperations: "extend"
+    selectFilter: "extend"
+    filter:
+      name: "registration"
+  auth: "{{ auth.json.result }}"
+  id: 1
+
+zabbix_action_create:
+  jsonrpc: "2.0"
+  method: "action.create"
+  params:
+    name: "registration"
+    eventsource: 2
+    esc_period: 0
+    def_longdata: "Host name: {HOST.HOST}\r\nHost IP: {HOST.IP}\r\nAgent port: {HOST.PORT}"
+    def_shortdata: "Auto registration: {HOST.HOST}"
+    filter:
+      conditions:
+        -
+          conditiontype: "22"
+          formulaid: "A"
+          operator: "2"
+          value: "fiesta"
+      evaltype: "0"
+      formula: ""
+    operations:
+      -
+        evaltype: "0"
+        opconditions: []
+        operationtype: "2"
+      -
+        evaltype: "0"
+        opconditions: []
+        operationtype: "6"
+        optemplate:
+          -
+            operationid: "8"
+            templateid: "10001"
+  auth: "{{ auth.json.result }}"
+  id: 100

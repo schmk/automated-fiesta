@@ -1,0 +1,31 @@
+- name: installed zabbix-server-mysql
+  apt:
+    name: zabbix-server-mysql
+    state: installed
+
+- name: check database is created
+  command: >
+    /usr/bin/mysql -u'{{ zabbix.dbuser }}' -p'{{ zabbix.dbpass }}' zabbix
+    -e "SHOW TABLES;"
+  register: zabbix_tables
+  
+- debug:
+    msg: '{{ zabbix_tables }}'
+
+
+- name: created zabbix schema
+  mysql_db:
+    state: import
+    target: '/usr/share/doc/zabbix-server-mysql/create.sql.gz'
+    name: zabbix
+    login_user:  root
+    login_password: '{{ mysql_root_password }}'
+  when: zabbix_tables.stdout.find('users') == -1
+
+- name: zabbix-server config file
+  template:
+    src: 'zabbix-server.conf.j2'
+    dest: '/etc/zabbix/zabbix_server.conf'
+    backup: yes
+  notify:
+    - restart zabbix-server

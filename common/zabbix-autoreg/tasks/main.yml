@@ -1,0 +1,63 @@
+- name: 'i_monitoring facts'
+  become: False
+  local_action:
+    module: ec2_remote_facts
+    region: '{{ cloud.aws.region }}'
+    filters:
+      instance-state-name: running
+      'tag:Name': 'monitoring'
+  register: 'i_monitoring'
+  tags: api
+
+- debug:
+    msg: 'monitoring instance: {{ i_monitoring }}'
+
+- uri:
+    url: "http://{{ i_monitoring.instances.0.public_dns_name }}/api_jsonrpc.php"
+    method: POST
+    return_content: yes
+    body: '{{ zabbix_auth | to_json }} '
+    status_code: 200
+    HEADER_Content-Type: 'application/json-rpc'
+  register: "auth"
+  tags: api
+
+- debug:
+    msg: 'Auth cookie is {{ auth.json.result }}'
+  tags: api
+
+- uri:
+    url: 'http://{{ i_monitoring.instances.0.public_dns_name }}/api_jsonrpc.php'
+    method: POST
+    return_content: yes
+    body: "{{  zabbix_action_get | to_json }}"
+    status_code: 200
+    HEADER_Content-Type: 'application/json-rpc'
+    body_format: 'json'
+  register: "autoregistration_get"
+  tags: api
+
+- debug:
+    msg: 'Get Autoregistrations {{ autoregistration_get }}'
+  tags: api
+
+
+- debug:
+    msg: 'Create Autoregistration Rule {{ zabbix_action_create }}'
+  tags: api
+
+- uri:
+    url: 'http://{{ i_monitoring.instances.0.public_dns_name }}/api_jsonrpc.php'
+    method: POST
+    return_content: yes
+    body: "{{  zabbix_action_create | to_json }}"
+    status_code: 200
+    HEADER_Content-Type: 'application/json-rpc'
+    body_format: 'json'
+  register: "autoregistration_created"
+  tags: api
+  when: '{{ autoregistration_get.json.result == [] }}'
+
+- debug:
+    msg: '{{ autoregistration_created }}'
+  tags: api

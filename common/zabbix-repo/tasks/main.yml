@@ -1,0 +1,9 @@
+- name: install zabbix repo key
+  apt_key: id=79EA5ED4
+           url=http://repo.zabbix.com/zabbix-official-repo.key
+
+- name: installed zabbix repo
+  apt_repository:
+    repo: 'deb http://repo.zabbix.com/zabbix/3.0/debian/ jessie main'
+    state: present
+    update_cache: True

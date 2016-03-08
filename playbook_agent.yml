@@ -1,0 +1,10 @@
+---
+- hosts: tag_role_*
+  user: admin
+  become: yes
+  gather_facts: True
+  vars_files:
+    - vars/cloud.yml
+  roles:
+    - role: zabbix-repo
+    - role: zabbix-agent

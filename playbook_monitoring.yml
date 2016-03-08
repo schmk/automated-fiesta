@@ -1,0 +1,21 @@
+---
+- hosts: tag_role_monitoring
+  user: admin
+  become: yes
+  gather_facts: True
+  vars_files:
+    - vars/monitoring.yml
+  pre_tasks:
+    - hostname: name=monitoring
+  roles:
+    - role: nginx
+    - role: HanXHX.mysql
+    - role: zabbix-repo
+    - role: zabbix-server
+
+- hosts: localhost
+  vars_files:
+    - vars/cloud.yml
+    - vars/autoreg.yml
+  roles:
+    - role: zabbix-autoreg

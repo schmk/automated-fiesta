@@ -1,0 +1,14 @@
+zabbix:
+  dbuser: 'zabbix'
+  dbpass: 'X123X'
+mysql_vendor: 'mysql'
+mysql_origin: 'default'
+mysql_root_password: '123'
+mysql_use_percona_repository: false
+mysql_databases:
+  - zabbix
+mysql_users:
+  - name: 'zabbix'
+    password: 'X123X'
+    priv: zabbix.*:ALL
+    host: '%'

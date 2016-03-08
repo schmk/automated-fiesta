@@ -1,0 +1,4 @@
+- include: server.yml
+- include: php-fpm.yml
+- include: frontend.yml
+- include: nginx.yml  

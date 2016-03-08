@@ -1,0 +1,8 @@
+
+PidFile=/var/run/zabbix/zabbix_agentd.pid
+LogFile=/var/log/zabbix/zabbix_agentd.log
+LogFileSize=0
+Server={{ i_monitoring['instances'][0]['private_ip_address'] }}
+ServerActive={{ i_monitoring['instances'][0]['private_ip_address'] }}
+Hostname=fiesta-{{ ansible_fqdn }}
+Include=/etc/zabbix/zabbix_agentd.d/

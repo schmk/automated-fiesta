@@ -1,0 +1,34 @@
+- name: 'i_monitoring facts'
+  become: False
+  local_action:
+    module: ec2_remote_facts
+    region: '{{ cloud.aws.region }}'
+    filters:
+      instance-state-name: running
+      'tag:Name': 'monitoring'
+  register: 'i_monitoring'
+
+
+- debug:
+    msg: '{{ i_monitoring }}'
+
+- name: Gather facts
+  action: ec2_facts
+
+- debug:
+    msg: 'Inventory_hostname={{ inventory_hostname }}'
+
+
+- name: installed zabbix-agent
+  apt:
+    name: zabbix-agent
+    state: installed
+
+
+- name: zabbix-server config file
+  template:
+    src: 'zabbix-agent.conf.j2'
+    dest: '/etc/zabbix/zabbix_agentd.conf'
+    backup: yes
+  notify:
+    - restart zabbix-agent
