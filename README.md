@@ -19,6 +19,7 @@ ansible-playbook  -i ec2.py  playbook_blog.yml
 ansible-playbook  -i ec2.py  playbook_admin.yml
 ansible-playbook  -i ec2.py  playbook_redis.yml
 ansible-playbook  -i ec2.py  playbook_monitoring.yml
+ansible-playbook  -i ec2.py  playbook_autoreg.yml
 ansible-playbook  -i ec2.py  playbook_agent.yml
 ```
 - Запустить настройку инстансов автоматически в нужном порядке
