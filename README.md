@@ -11,13 +11,19 @@ ansible-galaxy install -r requirements.yml
 ```
 ansible-playbook  -i ec2.py  site.yml
 ```
-- Запустить настройку инстансов
+- Запустить настройку инстансов вручную поочередно
 
 ```
 ansible-playbook  -i ec2.py  playbook_proxy.yml
 ansible-playbook  -i ec2.py  playbook_blog.yml
 ansible-playbook  -i ec2.py  playbook_admin.yml
 ansible-playbook  -i ec2.py  playbook_redis.yml
+ansible-playbook  -i ec2.py  playbook_monitoring.yml
+ansible-playbook  -i ec2.py  playbook_agent.yml
+```
+- Запустить настройку инстансов автоматически в нужном порядке
+```
+ansible-playbook  -i ec2.py main.yml
 ```
 
 ![pic](/pic.png)

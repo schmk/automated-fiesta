@@ -1,0 +1,7 @@
+- include: playbook_proxy.yml
+- include: playbook_blog.yml
+- include: playbook_admin.yml
+- include: playbook_redis.yml
+- include: playbook_monitoring.yml
+- include: playbook_autoreg.yml
+- include: playbook_agent.yml
