@@ -1,0 +1,6 @@
+- hosts: localhost
+  vars_files:
+    - vars/cloud.yml
+    - vars/autoreg.yml
+  roles:
+    - role: zabbix-autoreg
