@@ -7,6 +7,8 @@
     - vars/cloud.yml
     - vars/database.yml
     - vars/app.yml
+  pre_tasks:
+    - hostname: name=proxy
   roles:
     - common/nginx
     - roles/proxy

@@ -4,6 +4,7 @@
   become: yes
   gather_facts: True
   pre_tasks:
+    - hostname: name=monitoring
     - apt_repository: repo='deb http://httpredir.debian.net/debian {{ ansible_distribution_release }}-backports main' state=present
   roles:
     - { role: HanXHX.redis, redis_apt_backports: true,  redis_bind: 0.0.0.0 }

@@ -20,6 +20,8 @@
       app_name: '{{ app.name }}'
       home: '/var/www/{{ app.domain }}'
       workers: 5
+  pre_tasks:
+    - hostname: name=admin
   roles:
     - common/nginx
     - common/django
