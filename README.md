@@ -1,9 +1,14 @@
+#### Поддерживается
+- AWS defautl VPC
+- ansible 2
+- Debian 8 jessie
+
 #### Использование
 
 - Указать ключи AWS
 - Установить зависимости из galaxy
 ```
-ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml -p ./common
 ```
 -	Настроить параметры приложения в vars/
 - Запустить облако
