@@ -10,7 +10,7 @@
 ```
 ansible-galaxy install -r requirements.yml -p ./common
 ```
--	Настроить параметры приложения в vars/
+- Настроить параметры приложения в vars/
 - Запустить облако
 
 ```
