@@ -4,3 +4,22 @@ cloud:
     ami: ami-116d857a #https://wiki.debian.org/Cloud/AmazonEC2Image/Jessie
     key_name: ansible
     termination_protection: no
+    vpc:
+      name: fiesta
+      cidr_block: 172.61.0.0/16
+      subnets:
+        - cidr: 172.61.1.0/24
+          internet_gateway: true
+          resource_tags:
+            Name: fiesta
+          az: us-east-1a
+        - cidr: 172.61.2.0/24
+          internet_gateway: true
+          resource_tags:
+            Name: fiesta-db
+          az: us-east-1a
+        - cidr: 172.61.3.0/24
+          internet_gateway: true
+          resource_tags:
+            Name: fiesta-db
+          az: us-east-1b

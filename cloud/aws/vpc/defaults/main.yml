@@ -1,0 +1,2 @@
+vpc_igw_enabled_subnets: "{{ cloud.aws.vpc.subnets|select(attribute='internet_gateway')|list }}"
+vpc_igw_enabled_subnets_cidr: "{{ vpc_igw_enabled_subnets|map(attribute='cidr')|list }}"

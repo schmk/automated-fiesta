@@ -26,3 +26,5 @@
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0
+    vpc_id: '{{ vpc_info.vpc_id }}'
+  register: sg_redis_info

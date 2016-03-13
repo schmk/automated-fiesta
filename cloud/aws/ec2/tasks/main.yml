@@ -1,5 +1,5 @@
-- include: proxy.yml
-- include: blog.yml
-- include: admin.yml
-- include: monitoring.yml
-- include: redis.yml
+- include: proxy.yml subnet={{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta')|list|last }}
+- include: blog.yml subnet={{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta')|list|last }}
+- include: admin.yml subnet={{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta')|list|last }}
+- include: monitoring.yml subnet={{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta')|list|last }}
+- include: redis.yml subnet={{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta')|list|last }}

@@ -4,7 +4,7 @@
     instance_type: t2.nano
     image: '{{ cloud.aws.ami }}'
     wait: yes
-    group: redis
+    group_id: '{{ sg_redis_info.group_id }}'
     exact_count: 1
     count_tag:
       role: redis
@@ -13,3 +13,5 @@
     instance_tags:
       role: redis
       Name: redis
+    vpc_subnet_id: '{{ subnet.id }}'
+    assign_public_ip: True

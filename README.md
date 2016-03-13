@@ -1,5 +1,4 @@
 #### Поддерживается
-- AWS defautl VPC
 - ansible 2
 - Debian 8 jessie
 

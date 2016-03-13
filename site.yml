@@ -5,6 +5,7 @@
     - vars/cloud.yml
     - vars/database.yml
   roles:
+    - cloud/aws/vpc
     - cloud/aws/sg
     - cloud/aws/ec2
     - cloud/aws/rds

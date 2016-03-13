@@ -4,7 +4,7 @@
     instance_type: t2.micro
     image: '{{ cloud.aws.ami }}'
     wait: yes
-    group: admin
+    group_id: '{{ sg_admin_info.group_id }}'
     exact_count: 1
     count_tag:
       role: admin
@@ -13,3 +13,5 @@
     instance_tags:
       role: admin
       Name: admin
+    vpc_subnet_id: '{{ subnet.id }}'
+    assign_public_ip: True

@@ -3,8 +3,8 @@
     key_name: '{{ cloud.aws.key_name }}'
     instance_type: t2.nano
     image: '{{ cloud.aws.ami }}'
+    group_id: '{{ sg_blog_info.group_id }}'
     wait: yes
-    group: blog
     exact_count: 1
     count_tag:
       - role: blog
@@ -13,3 +13,5 @@
     instance_tags:
       role: blog
       Name: blog
+    vpc_subnet_id: '{{ subnet.id }}'
+    assign_public_ip: True

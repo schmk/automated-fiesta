@@ -1,0 +1,21 @@
+- name: Create vpc
+  ec2_vpc:
+    region: '{{ cloud.aws.region }}'
+    cidr_block: '{{ cloud.aws.vpc.cidr_block }}'
+    internet_gateway: true
+    resource_tags:
+      Name: '{{ cloud.aws.vpc.name }}'
+    wait: true
+    subnets: "{{ cloud.aws.vpc.subnets }}"
+    route_tables:
+      - subnets: '{{ vpc_igw_enabled_subnets_cidr }}'
+        routes:
+           - dest: 0.0.0.0/0
+             gw: igw
+  register: vpc_info
+
+- debug:
+   msg: '{{ vpc_info }}'
+
+- debug:
+   msg: "fiesta subnet: {{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta')|list|last }}"

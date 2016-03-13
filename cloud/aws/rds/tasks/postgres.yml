@@ -1,3 +1,11 @@
+- name: create rds_subnet_group
+  rds_subnet_group:
+    region: '{{ cloud.aws.region }}'
+    state: present
+    name: '{{ db.name }}'
+    description: fiesta
+    subnets: "{{ vpc_info['subnets']|selectattr('resource_tags.Name', 'equalto', 'fiesta-db')|map(attribute='id')|list}}"
+
 - name: database
   rds:
     command: create
@@ -8,8 +16,8 @@
     instance_type: db.t2.micro
     username: '{{ db.username }}'
     password: '{{ db.password }}'
-    vpc_security_groups: [ '{{ sg_postgres.group_id }}' ]
-    subnet: default
+    vpc_security_groups: [ '{{ sg_postgres_info.group_id }}' ]
+    subnet: '{{ db.name }}'
     multi_zone: no
     region: '{{ cloud.aws.region }}'
     backup_retention: 0
